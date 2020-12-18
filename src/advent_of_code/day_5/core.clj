@@ -46,18 +46,14 @@
   (Integer/parseInt bin 2))
 
 (defn get-seat-id-2 [pass]
-  (let [row-code (subs pass 0 7)
-        seat-code (subs pass 7)
-        row  (-> row-code ->bin ->num)
-        seat (-> seat-code ->bin ->num)]
-    (+ (* row 8) seat)))
+  (-> pass
+      ->bin
+      ->num))
 
 (defn solution* [data]
   (->> data
        (map get-seat-id-2)
-       (sort >)
-       first))
-
+       (apply max)))
 
 
 (defn solution-2 [data]
@@ -73,7 +69,7 @@
 (comment
   (solution (get-data input-path))
 ;; => 991
-   (solution* (get-data input-path)) ;; this one faster
+  (time (solution* (get-data input-path))) ;; this one faster
    ;;
    (solution-2 (get-data input-path))
 ;; => 534
